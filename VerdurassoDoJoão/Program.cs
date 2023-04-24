@@ -19,7 +19,7 @@ namespace VerduraoDoJoao.Melanciometro
             DayOfWeek today = DateTime.Today.DayOfWeek;
             // string[,] tabela = new string[4, 4] { { Convert.ToString(diaSemana), "\tMelancia Comum", "melancia Baby", placaCaminhao }, { "Peso melancia", "\t" + Convert.ToString(quiloComum), "\t" + Convert.ToString(quiloBaby), "- -" }, { "Valor melancia", "\t" + Convert.ToString(pagarComum), "\t" + Convert.ToString(pagarBaby), "- -" }, { "Valor Total", "      - - -", "      - - -", " " + Convert.ToString(total) } };
 
-            //=> 
+            //=> Acessar loja
             //=> Login
             //      Menu João:
             //      Registrar Caminhão
@@ -187,8 +187,10 @@ namespace VerduraoDoJoao.Melanciometro
                     }
 
                 */
-
+Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.ResetColor();
                 Console.WriteLine("Temos disponíveis a melancia comum a 5,50 o quilo e a melancia do tipo Baby a 8,56 o quilo.");
+Console.ResetColor();
                 Console.WriteLine();
                 // Operações para compra
                 while (sairCompra == false)
