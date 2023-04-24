@@ -6,3 +6,11 @@ C:\Users\ALUNO\Desktop\Exercícios Vespertino\VerdurassoDoJoão\VerdurassoDoJoã
 C:\Users\ALUNO\Desktop\Exercícios Vespertino\VerdurassoDoJoão\VerdurassoDoJoão\bin\Debug\VerdurassoDoJoão.pdb
 C:\Users\ALUNO\Desktop\Exercícios Vespertino\VerdurassoDoJoão\VerdurassoDoJoão\obj\Debug\VerdurassoDoJoão.exe
 C:\Users\ALUNO\Desktop\Exercícios Vespertino\VerdurassoDoJoão\VerdurassoDoJoão\obj\Debug\VerdurassoDoJoão.pdb
+E:\Git Here\VerdurassoDoJoao\VerdurassoDoJoão\bin\Debug\VerdurassoDoJoão.exe.config
+E:\Git Here\VerdurassoDoJoao\VerdurassoDoJoão\bin\Debug\VerdurassoDoJoão.exe
+E:\Git Here\VerdurassoDoJoao\VerdurassoDoJoão\bin\Debug\VerdurassoDoJoão.pdb
+E:\Git Here\VerdurassoDoJoao\VerdurassoDoJoão\obj\Debug\VerdurassoDoJoão.csproj.AssemblyReference.cache
+E:\Git Here\VerdurassoDoJoao\VerdurassoDoJoão\obj\Debug\VerdurassoDoJoão.csproj.SuggestedBindingRedirects.cache
+E:\Git Here\VerdurassoDoJoao\VerdurassoDoJoão\obj\Debug\VerdurassoDoJoão.csproj.CoreCompileInputs.cache
+E:\Git Here\VerdurassoDoJoao\VerdurassoDoJoão\obj\Debug\VerdurassoDoJoão.exe
+E:\Git Here\VerdurassoDoJoao\VerdurassoDoJoão\obj\Debug\VerdurassoDoJoão.pdb

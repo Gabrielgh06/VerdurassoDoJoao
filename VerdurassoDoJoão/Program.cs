@@ -6,49 +6,45 @@ namespace VerduraoDoJoao.Melanciometro
     {
         static void Main(string[] args)
         {
-            //•	O software deve permitir a entrada da placa do caminhão
-
-            //•	O software deve considerar dois valores fixos: melancia comum R$ 5.50 e melancia baby 8.54 o quilo
-
-            //•	O software deve possuir um looping(do while) que possa interagir com o usuário do sistema, esse looping irá mostrar o menu e as entradas de dados, deixando-o controlado por sentinela
-            //(o usuário que vai determinar o fim)
-
-            //•	O software deve considerar o looping e calcular o valor total de melancia comum e o valor total de melancia baby que foi carregada no caminhão em questão
-
-            //•	O software deve também considerar e mostrar o total geral das duas melancias
-
-            //•	Na entrada de dados o usuário vai entrar com um número inteiro. Você deverá utilizar um switch para mostrar uma mensagem personalizada para cada dia da semana.O dia 1 é segunda-feira o dia 5 é sexta-feira.
-            //Os dias de promoção é na terça e quarta, chamada de quarta verde, então você deve dar um desconto na terça de 15 % e na quarta 17 %, as mensagens devem ser personalizadas(terça verde, quarta verde).
-            //Os outros dias respectivamente devem dar os seguintes descontos: Seg(1 %) , Quinta(2 %) , Sexta(3 %) e não possuem mensagem de promoções.
-
-            //•	Por último ele solicitou também, um controle de usuário, considerando que a senha é 123 e o usuário é “joão” crie um sistema de login que verifique se o usuário e a senha possui os dados corretos
-            //para autenticar.
-
-            //•	Muito importante, saber que ele pediu para bloquear e abandonar o looping se o usuário errar três vezes.Então, aplique os conhecimentos de if, if else, while, break, continue e aplique nesse desafio,
-            //considere que ele pode acertar a senha e o usuário na 1ª , 2ª ou 3ª tentativa.
-
-
-            string sair;
-            string placaCaminhao = null;
-            double valorComum = 5.0;
+            double valorComum = 5.5;
             double valorBaby = 8.56;
             double quiloComum = 0;
             double quiloBaby = 0;
-            double pagarComum = 0;
-            double pagarBaby = 0;
-            double total = 0;
+            double desconto = 0;
+            double descontoComum = 0;
+            double descontoBaby = 0;
+            double total = (descontoComum + descontoBaby);
+            string sair;
+            string placaCaminhao = null;
             string diaSemana = null;
+            DayOfWeek today = DateTime.Today.DayOfWeek;
+            string[,] tabela = new string[4, 4] { { Convert.ToString(diaSemana), "\tMelancia Comum", "melancia Baby", placaCaminhao }, { "Peso melancia", "\t" + Convert.ToString(quiloComum), "\t" + Convert.ToString(quiloBaby), "- -" }, { "Valor melancia", "\t" + Convert.ToString(descontoComum), "\t" + Convert.ToString(descontoBaby), "- -" }, { "Valor Total", "      - - -", "      - - -", " " + Convert.ToString(total) } };
+
+            //
+            //=> Login
+            //      Menu João:
+            //      Registrar Caminhão
+            //      Deletar Caminhão
+            //      Procurar Caminhão pela Placa
+            //      Procurar Caminhão pelo CPF/ CNPJ do proprietário
+            //      Regiustrar Produto
+            //      Deletar Produto
+            //      Sair
+
             do
             {
-                bool respostaValidaC = false;
-                bool respostaValidaB = false;
+                // Rezetar:
+                bool sairCompra = false;
 
+                // Boas vindas
                 Console.WriteLine("Bem vindo ao Verdurão do João ");
+                //Console.WriteLine("Digite: 1 para registrar seu caminhão ou 2 para logar");
                 Console.WriteLine("Informe a placa do seu caminhão ou digite login para logar");
                 var cmd = Console.ReadLine();
+
+                // Còdigo para logar --> senha: 123 usuário: "joão"
                 if (cmd == "login")
                 {
-                    //còdigo para logar --> senha: 123 usuário: "joão"
                     int tentativas = 0;
                     string usuario;
                     string senha;
@@ -56,7 +52,7 @@ namespace VerduraoDoJoao.Melanciometro
                     Console.Clear();
                     do
                     {
-                        //Console.WriteLine("Por favor, informe suas credenciais de acesso:");
+                        Console.WriteLine("Por favor, informe suas credenciais de acesso:");
                         Console.Write("Usuário: ");
                         usuario = Console.ReadLine();
                         Console.Write("Senha: ");
@@ -75,7 +71,11 @@ namespace VerduraoDoJoao.Melanciometro
 
                             if (tentativas == 3)
                             {
-                                Console.WriteLine("Número máximo de tentativas atingido. Bloqueando acesso.");
+                                Console.BackgroundColor = ConsoleColor.Red;
+                                Console.ForegroundColor = ConsoleColor.White;
+                                Console.Clear();
+                                Console.WriteLine("Número máximo de tentativas atingido. ACESSO BLOQUEADO.");
+                                Console.ReadKey();
                                 break;
                             }
                         }
@@ -88,111 +88,173 @@ namespace VerduraoDoJoao.Melanciometro
                     //placaCaminhao = Console.ReadLine();
                     placaCaminhao = cmd;
                 }
-                Console.Write("Informe o dia da semana: 1 - Segunda 2 - Terça 3 - Quarta 4 - Quinta 5 - Sexta  ");
-                switch (Console.ReadLine())
+
+                //Console.Write("Informe o dia da semana: \r\n 1 - Segunda; \r\n 2 - Terça 15% off; \r\n 3 - Quarta 17% off; \r\n 4 - Quinta; \r\n 5 - Sexta\r\n");
+                //while (diaSemana == null)
+                //{
+                //    switch (Console.ReadLine())
+                //    {
+                //        case "1":
+                //            diaSemana = "Segunda-feira";
+                //            desconto = 0.01;
+                //            break;
+                //        case "2":
+                //            diaSemana = "Terça Verde";
+                //            desconto = 0.15;
+                //            break;
+                //        case "3":
+                //            diaSemana = "Quarta Verde";
+                //            desconto = 0.17;
+                //            break;
+                //        case "4":
+                //            diaSemana = "Quinta-Feira";
+                //            desconto = 0.02;
+                //            break;
+                //        case "5":
+                //            diaSemana = "Sexta-feira";
+                //            desconto = 0.03;
+                //            break;
+                //        default:
+                //            // Caso o usuário digite algo fora 1, 2, 3, 4, 5
+                //            Console.WriteLine("Não entendi, digite 1, 2, 3, 4 ou 5");
+                //            break;
+                //    }
+                //}
+
+               Console.BackgroundColor = ConsoleColor.Black;
+
+                // Dia da semana + desconto do dia 
+                switch (today)
                 {
-                    case "1":
-                        diaSemana = "Segunda-feira";
+                    case DayOfWeek.Monday:
+                        diaSemana = "Segunda";
+                        //valorBaby = valorBaby * (1 - 0.01);
+                        //valorComum = valorComum * (1 - 0.01);
+                        desconto = 0.01;
                         break;
-                    case "2":
+                    case DayOfWeek.Tuesday:
                         diaSemana = "Terça Verde";
+                        desconto = 0.15;
                         break;
-                    case "3":
+                    case DayOfWeek.Wednesday:
                         diaSemana = "Quarta Verde";
+                        desconto = 0.17;
                         break;
-                    case "4":
+                    case DayOfWeek.Thursday:
                         diaSemana = "Quinta-Feira";
+                        desconto = 0.02;
                         break;
-                    case "5":
+                    case DayOfWeek.Friday:
                         diaSemana = "Sexta-feira";
+                        desconto = 0.03;
                         break;
-
                 }
-                //diaSemana = Convert.ToInt16(Console.ReadLine());
-                Console.Clear();
-                string[,] tabela = new string[4, 4] { { Convert.ToString(diaSemana), "Melancia Comum", "melancia Baby", placaCaminhao }, { "Peso melancia", Convert.ToString(quiloComum), Convert.ToString(quiloBaby), "- - - -" }, { "Valor melancia", Convert.ToString(pagarComum), Convert.ToString(pagarBaby), "- - - -" }, { "Valor Total", "- - - -", "- - - -", Convert.ToString(total) } };
 
-                for (int i = 0; i < 4; i++)
-                {
-                    for (int j = 0; j < 4; j++)
+                Console.Clear();
+
+                // Código para criar a tabela
+                //string[,] tabela = new string[4, 4] { { Convert.ToString(today), "\tMelancia Comum", "melancia Baby", placaCaminhao }, { "Peso melancia", "\t" + Convert.ToString(quiloComum), "\t" + Convert.ToString(quiloBaby), "- -" }, { "Valor melancia", "\t" + Convert.ToString(descontoComum), "\t" + Convert.ToString(descontoBaby), "- -" }, { "Valor Total", "      - - -", "      - - -", " " + Convert.ToString(total) } };
+
+                /* Código para mostrar a tabela com o carrinho do respectivo caminhão
+                 
+                    for (int i = 0; i < 4; i++)
                     {
-                        Console.Write(tabela[i, j] + "\t");
+                        for (int j = 0; j < 4; j++)
+                        {
+                            Console.Write(tabela[i, j] + "\t");
+                        }
+                        Console.WriteLine();
+                    }
+
+                */
+
+                Console.WriteLine("Temos disponíveis a melancia comum a 5,50 o quilo e a melancia do tipo Baby a 8,56 o quilo.");
+                Console.WriteLine();
+                // Operações para compra
+                while (sairCompra == false)
+                {
+                    Console.WriteLine();
+                    // Código para mostrar a tabela do caminhão com seu respectivo carrinho
+                    for (int a = 0; a < 4; a++)
+                    {
+                        for (int s = 0; s < 4; s++)
+                        {
+                            Console.Write(tabela[a, s] + "\t");
+                        }
+                        Console.WriteLine("tabela1");
                     }
                     Console.WriteLine();
-                }
-
-                //Melancia Comum
-                while (respostaValidaC == false)
-                {
-                    Console.WriteLine($"Temos disponíveis a melancia comum a 5,50 o quilo e a melancia do tipo Baby a 8,56 o quilo    | Seu Carrinho: {total}");
+                    Console.WriteLine("Digite 1 ou 2 para selecionar o tipo de melancia ou 3 para finalizar a compra\r\n" +
+                        "1 - melancia comum; \r\n2 - melancia baby; \r\n3 - finalizar");
                     //($"melancia baby:{preco.ToString()}");
-                    Console.WriteLine("Você quer comprar a Melancia Comum?");
-                    Console.WriteLine("Digite S ou N");
-                    string userResponseComum = Console.ReadLine();
-                    switch (userResponseComum.ToUpper())
+                    string userResponse = Console.ReadLine();
+                    switch (userResponse)
                     {
-                        case "S":
+                        case "1":
                             // Qual a quantidade
-                            Console.WriteLine("Quantos quilos você quer comprar?");
+                            Console.WriteLine("Quantos quilos você quer comprar da melancia comum?");
                             quiloComum = Convert.ToDouble(Console.ReadLine());
-                            pagarComum = valorComum * quiloComum;
-                            respostaValidaC = true;
-                            break;
-                        case "N":
-                            respostaValidaC = true;
-                            // Continua o código
-                            break;
-                        default:
-                            // Caso o usuário digite algo fora S ou N
+                            double pagarComum = valorComum * quiloComum;
+                            descontoComum = pagarComum - (pagarComum * desconto);
+                            sairCompra = false;
                             Console.Clear();
-                            Console.WriteLine("Não entendi, digite S ou N");
                             break;
-                    }
-                }
-
-
-                Console.Clear();
-                //Melancia Baby
-                while (respostaValidaB == false)
-                {
-                    Console.WriteLine("Você quer comprar a Melancia Baby?");
-                    Console.WriteLine("Digite S ou N");
-                    string userResponseBaby = Console.ReadLine();
-                    switch (userResponseBaby.ToUpper())
-                    {
-                        case "S":
-                            // Qual a quantidade
-                            Console.WriteLine("Quantos quilos você quer comprar?");
+                        case "2":
+                            Console.WriteLine("Quantos quilos você quer comprar da melancia baby?");
                             quiloBaby = double.Parse(Console.ReadLine());
-                            pagarBaby = valorBaby * quiloBaby;
-                            respostaValidaB = true;
+                            double pagarBaby = valorBaby * quiloBaby;
+                            descontoBaby = pagarBaby - (pagarBaby * desconto);
+                            sairCompra = false;
+                            Console.Clear();
                             break;
-                        case "N":
-                            respostaValidaB = true;
-                            // Continua o código
+                        // Sai do while
+                        case "3":
+                            sairCompra = true;
                             break;
                         default:
-                            // Caso o usuário digite algo fora S ou N
+                            // Caso o usuário digite algo fora 1, 2 ou finalizar
                             Console.Clear();
-                            Console.WriteLine("Não entendi, digite S ou N");
+                            Console.WriteLine("Não entendi, digite 1, 2 ou finalizar");
+                            sairCompra = false;
                             break;
                     }
                 }
                 Console.Clear();
+
                 //Resultado
-                Console.WriteLine("Caminhão da placa " + placaCaminhao + ", esta comprando:\r\n"
-                   + "Quilos da melancia Comum: " + quiloComum + " Valor: " + pagarComum + "\r\n"
-                   + "Quilos da melancia Baby: " + quiloBaby + " Valor: " + pagarBaby);
-                Console.WriteLine("O total a se pagar é de: " + (total = pagarBaby + pagarComum));
+                for (int q = 0; q < 4; q++)
+                {
+                    for (int w = 0; w < 4; w++)
+                    {
+                        Console.Write(tabela[q, w] + "\t ");
+                    }
+                    Console.WriteLine("tabela2");
+                }
+                Console.WriteLine();
                 Console.WriteLine("\r\nDigite a palavra 'sair' para encerrar o programa ou precione enter caso queira refazer a operação");
                 sair = Console.ReadLine();
                 Console.Clear();
             } while (sair.ToLower() != "sair");
-
             Console.ReadLine();
         }
     }
 }
+
+
+// • O software deve permitir a entrada da placa do caminhão
+// • O software deve considerar dois valores fixos: melancia comum R$ 5.50 e melancia baby 8.54 o quilo
+// • O software deve possuir um looping(do while) que possa interagir com o usuário do sistema, esse looping irá mostrar o menu e as entradas de dados, deixando-o controlado por sentinela
+//(o usuário que vai determinar o fim)
+// • O software deve considerar o looping e calcular o valor total de melancia comum e o valor total de melancia baby que foi carregada no caminhão em questão
+// • O software deve também considerar e mostrar o total geral das duas melancias
+// • Na entrada de dados o usuário vai entrar com um número inteiro. Você deverá utilizar um switch para mostrar uma mensagem personalizada para cada dia da semana.O dia 1 é segunda-feira o dia 5 é sexta-feira.
+//Os dias de promoção é na terça e quarta, chamada de quarta verde, então você deve dar um desconto na terça de 15 % e na quarta 17 %, as mensagens devem ser personalizadas(terça verde, quarta verde).
+//Os outros dias respectivamente devem dar os seguintes descontos: Seg(1 %) , Quinta(2 %) , Sexta(3 %) e não possuem mensagem de promoções.
+// • Por último ele solicitou também, um controle de usuário, considerando que a senha é 123 e o usuário é “joão” crie um sistema de login que verifique se o usuário e a senha possui os dados corretos
+//para autenticar.
+// • Muito importante, saber que ele pediu para bloquear e abandonar o looping se o usuário errar três vezes.Então, aplique os conhecimentos de if, if else, while, break, continue e aplique nesse desafio,
+//considere que ele pode acertar a senha e o usuário na 1ª , 2ª ou 3ª tentativa.
+
 
 //Desafio 1) agora o João do Caminhão quer vender Caqui, Morango, Laranja e Uva.
 //
