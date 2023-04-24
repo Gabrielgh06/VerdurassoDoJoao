@@ -195,8 +195,8 @@ Console.ResetColor();
                 // Operações para compra
                 while (sairCompra == false)
                 {
-                    float ArredPrecoC = (float)(Math.Round((double)valorComum, 2));
-                    float ArredPrecoB = (float)(Math.Round((double)valorBaby, 2));
+                    float ArredPrecoC = (float)(Math.Round((double)pagarComum, 2));
+                    float ArredPrecoB = (float)(Math.Round((double)pagarBaby, 2));
 
                     Console.WriteLine("\n");
                     Console.WriteLine(" 1 - Melancia Comum | R$" + ArredPrecoC + " | " + pagarComum + " kg no carrinho");
