@@ -10,17 +10,16 @@ namespace VerduraoDoJoao.Melanciometro
             double valorBaby = 8.56;
             double quiloComum = 0;
             double quiloBaby = 0;
-            double desconto = 0;
-            double descontoComum = 0;
-            double descontoBaby = 0;
-            double total = (descontoComum + descontoBaby);
+            double pagarComum = 0;
+            double pagarBaby = 0;
+            //double total = (pagarComum + pagarBaby);
             string sair;
             string placaCaminhao = null;
             string diaSemana = null;
             DayOfWeek today = DateTime.Today.DayOfWeek;
-            string[,] tabela = new string[4, 4] { { Convert.ToString(diaSemana), "\tMelancia Comum", "melancia Baby", placaCaminhao }, { "Peso melancia", "\t" + Convert.ToString(quiloComum), "\t" + Convert.ToString(quiloBaby), "- -" }, { "Valor melancia", "\t" + Convert.ToString(descontoComum), "\t" + Convert.ToString(descontoBaby), "- -" }, { "Valor Total", "      - - -", "      - - -", " " + Convert.ToString(total) } };
+            // string[,] tabela = new string[4, 4] { { Convert.ToString(diaSemana), "\tMelancia Comum", "melancia Baby", placaCaminhao }, { "Peso melancia", "\t" + Convert.ToString(quiloComum), "\t" + Convert.ToString(quiloBaby), "- -" }, { "Valor melancia", "\t" + Convert.ToString(pagarComum), "\t" + Convert.ToString(pagarBaby), "- -" }, { "Valor Total", "      - - -", "      - - -", " " + Convert.ToString(total) } };
 
-            //
+            //=> 
             //=> Login
             //      Menu João:
             //      Registrar Caminhão
@@ -37,13 +36,26 @@ namespace VerduraoDoJoao.Melanciometro
                 bool sairCompra = false;
 
                 // Boas vindas
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("Bem vindo ao Verdurão do João ");
+                Console.ResetColor();
                 //Console.WriteLine("Digite: 1 para registrar seu caminhão ou 2 para logar");
-                Console.WriteLine("Informe a placa do seu caminhão ou digite login para logar");
+                //Console.WriteLine("Informe a placa do seu caminhão ou digite login para logar");
+                Console.Write("Digite ");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write("1"); // Loja
+                Console.ResetColor();
+                Console.Write(" para acessar a loja ou ");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write("2"); // Login
+                Console.ResetColor();
+                Console.WriteLine(" para logar");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 var cmd = Console.ReadLine();
+                Console.ResetColor();
 
                 // Còdigo para logar --> senha: 123 usuário: "joão"
-                if (cmd == "login")
+                if (cmd == "2")
                 {
                     int tentativas = 0;
                     string usuario;
@@ -54,19 +66,27 @@ namespace VerduraoDoJoao.Melanciometro
                     {
                         Console.WriteLine("Por favor, informe suas credenciais de acesso:");
                         Console.Write("Usuário: ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         usuario = Console.ReadLine();
+                        Console.ResetColor();
                         Console.Write("Senha: ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         senha = Console.ReadLine();
+                        Console.ResetColor();
+
 
                         if (usuario == "joão" && senha == "123")
                         {
-                            placaCaminhao = "João";
+                            placaCaminhao = "ADM João";
                             autenticado = true;
+                            Console.BackgroundColor = ConsoleColor.DarkRed;
                             Console.WriteLine("Login realizado com sucesso!");
+                            Console.ResetColor();
                         }
                         else
                         {
                             tentativas++;
+
                             Console.WriteLine("Usuário ou senha incorretos. Tente novamente.");
 
                             if (tentativas == 3)
@@ -74,87 +94,87 @@ namespace VerduraoDoJoao.Melanciometro
                                 Console.BackgroundColor = ConsoleColor.Red;
                                 Console.ForegroundColor = ConsoleColor.White;
                                 Console.Clear();
-                                Console.WriteLine("Número máximo de tentativas atingido. ACESSO BLOQUEADO.");
+                                Console.WriteLine("Número máximo de tentativas atingido. \r\nACESSO BLOQUEADO.");
                                 Console.ReadKey();
-                                break;
+                                Environment.Exit(0);
+                                //break;
                             }
                         }
 
                     } while (!autenticado);
 
-                }
+                }          
                 else
                 {
-                    //placaCaminhao = Console.ReadLine();
-                    placaCaminhao = cmd;
-                }
+                    Console.WriteLine("Digite a placa do seu caminhão");
+                    placaCaminhao = Console.ReadLine();
+                }                               
+                Console.BackgroundColor = ConsoleColor.Black;
 
-                //Console.Write("Informe o dia da semana: \r\n 1 - Segunda; \r\n 2 - Terça 15% off; \r\n 3 - Quarta 17% off; \r\n 4 - Quinta; \r\n 5 - Sexta\r\n");
-                //while (diaSemana == null)
-                //{
-                //    switch (Console.ReadLine())
-                //    {
-                //        case "1":
-                //            diaSemana = "Segunda-feira";
-                //            desconto = 0.01;
-                //            break;
-                //        case "2":
-                //            diaSemana = "Terça Verde";
-                //            desconto = 0.15;
-                //            break;
-                //        case "3":
-                //            diaSemana = "Quarta Verde";
-                //            desconto = 0.17;
-                //            break;
-                //        case "4":
-                //            diaSemana = "Quinta-Feira";
-                //            desconto = 0.02;
-                //            break;
-                //        case "5":
-                //            diaSemana = "Sexta-feira";
-                //            desconto = 0.03;
-                //            break;
-                //        default:
-                //            // Caso o usuário digite algo fora 1, 2, 3, 4, 5
-                //            Console.WriteLine("Não entendi, digite 1, 2, 3, 4 ou 5");
-                //            break;
-                //    }
-                //}
+                /* Console.Write("Informe o dia da semana: \r\n 1 - Segunda; \r\n 2 - Terça 15% off; \r\n 3 - Quarta 17% off; \r\n 4 - Quinta; \r\n 5 - Sexta\r\n");
 
-               Console.BackgroundColor = ConsoleColor.Black;
-
+                 * while (diaSemana == null)
+                    {
+                        switch (Console.ReadLine())
+                        {
+                            case "1":
+                                diaSemana = "Segunda-feira";
+                                desconto = 0.01;
+                                break;
+                            case "2":
+                                diaSemana = "Terça Verde";
+                                desconto = 0.15;
+                                break;
+                            case "3":
+                                diaSemana = "Quarta Verde";
+                                desconto = 0.17;
+                                break;
+                            case "4":
+                                diaSemana = "Quinta-Feira";
+                                desconto = 0.02;
+                                break;
+                            case "5":
+                                diaSemana = "Sexta-feira";
+                                desconto = 0.03;
+                                break;
+                            default:
+                                // Caso o usuário digite algo fora 1, 2, 3, 4, 5
+                                Console.WriteLine("Não entendi, digite 1, 2, 3, 4 ou 5");
+                                break;
+                        }
+                    }
+                 */
                 // Dia da semana + desconto do dia 
                 switch (today)
                 {
                     case DayOfWeek.Monday:
                         diaSemana = "Segunda";
-                        //valorBaby = valorBaby * (1 - 0.01);
-                        //valorComum = valorComum * (1 - 0.01);
-                        desconto = 0.01;
+                        valorComum = valorComum * (1 - 0.01);
+                        valorBaby = valorBaby * (1 - 0.01);
                         break;
                     case DayOfWeek.Tuesday:
                         diaSemana = "Terça Verde";
-                        desconto = 0.15;
+                        valorComum = valorComum * (1 - 0.15);
+                        valorBaby = valorBaby * (1 - 0.15);
                         break;
                     case DayOfWeek.Wednesday:
                         diaSemana = "Quarta Verde";
-                        desconto = 0.17;
+                        valorComum = valorComum * (1 - 0.17);
+                        valorBaby = valorBaby * (1 - 0.17);
                         break;
                     case DayOfWeek.Thursday:
                         diaSemana = "Quinta-Feira";
-                        desconto = 0.02;
+                        valorComum = valorComum * (1 - 0.02);
+                        valorBaby = valorBaby * (1 - 0.02);
                         break;
                     case DayOfWeek.Friday:
                         diaSemana = "Sexta-feira";
-                        desconto = 0.03;
+                        valorComum = valorComum * (1 - 0.03);
+                        valorBaby = valorBaby * (1 - 0.03);
                         break;
                 }
-
                 Console.Clear();
-
-                // Código para criar a tabela
-                //string[,] tabela = new string[4, 4] { { Convert.ToString(today), "\tMelancia Comum", "melancia Baby", placaCaminhao }, { "Peso melancia", "\t" + Convert.ToString(quiloComum), "\t" + Convert.ToString(quiloBaby), "- -" }, { "Valor melancia", "\t" + Convert.ToString(descontoComum), "\t" + Convert.ToString(descontoBaby), "- -" }, { "Valor Total", "      - - -", "      - - -", " " + Convert.ToString(total) } };
-
+               
                 /* Código para mostrar a tabela com o carrinho do respectivo caminhão
                  
                     for (int i = 0; i < 4; i++)
@@ -173,37 +193,53 @@ namespace VerduraoDoJoao.Melanciometro
                 // Operações para compra
                 while (sairCompra == false)
                 {
-                    Console.WriteLine();
-                    // Código para mostrar a tabela do caminhão com seu respectivo carrinho
-                    for (int a = 0; a < 4; a++)
-                    {
-                        for (int s = 0; s < 4; s++)
-                        {
-                            Console.Write(tabela[a, s] + "\t");
-                        }
-                        Console.WriteLine("tabela1");
-                    }
-                    Console.WriteLine();
-                    Console.WriteLine("Digite 1 ou 2 para selecionar o tipo de melancia ou 3 para finalizar a compra\r\n" +
-                        "1 - melancia comum; \r\n2 - melancia baby; \r\n3 - finalizar");
-                    //($"melancia baby:{preco.ToString()}");
+                    float ArredPrecoC = (float)(Math.Round((double)valorComum, 2));
+                    float ArredPrecoB = (float)(Math.Round((double)valorBaby, 2));
+
+                    Console.WriteLine("\n");
+                    Console.WriteLine(" 1 - Melancia Comum | R$" + ArredPrecoC + " | " + pagarComum + " kg no carrinho");
+                    Console.WriteLine(" 2 - Melancia Baby  | R$" + ArredPrecoB + " | " + pagarBaby + " kg no carrinho");
+                    Console.WriteLine(" 3 - Finalizar compra");
+                    Console.WriteLine("\n");
+
+                    Console.WriteLine();                    
+                    Console.Write("Digite ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write("1"); // Melancia comum
+                    Console.ResetColor();
+                    Console.Write(" ou ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write("2"); // Melancia Baby
+                    Console.ResetColor();
+                    Console.Write(" para selecionar o tipo de melancia ou ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write("3"); // Finalizar
+                    Console.ResetColor();
+                    Console.Write(" para finalizar a compra");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\r\n1 - melancia comum; \r\n2 - melancia baby; \r\n3 - finalizar");
                     string userResponse = Console.ReadLine();
+                    Console.ResetColor();
+
+
                     switch (userResponse)
                     {
-                        case "1":
+                        case "1": // Melancia Comum
                             // Qual a quantidade
                             Console.WriteLine("Quantos quilos você quer comprar da melancia comum?");
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
                             quiloComum = Convert.ToDouble(Console.ReadLine());
-                            double pagarComum = valorComum * quiloComum;
-                            descontoComum = pagarComum - (pagarComum * desconto);
+                            Console.ResetColor();
+                            pagarComum = pagarComum + valorComum * quiloComum;
                             sairCompra = false;
                             Console.Clear();
                             break;
-                        case "2":
+                        case "2": // Melancia Baby
                             Console.WriteLine("Quantos quilos você quer comprar da melancia baby?");
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
                             quiloBaby = double.Parse(Console.ReadLine());
-                            double pagarBaby = valorBaby * quiloBaby;
-                            descontoBaby = pagarBaby - (pagarBaby * desconto);
+                            Console.ResetColor();
+                            pagarBaby = pagarBaby + valorBaby * quiloBaby;
                             sairCompra = false;
                             Console.Clear();
                             break;
@@ -214,7 +250,9 @@ namespace VerduraoDoJoao.Melanciometro
                         default:
                             // Caso o usuário digite algo fora 1, 2 ou finalizar
                             Console.Clear();
-                            Console.WriteLine("Não entendi, digite 1, 2 ou finalizar");
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("Não entendi, digite 1, 2 ou 3 para finalizar");
+                            Console.ResetColor();
                             sairCompra = false;
                             break;
                     }
@@ -222,24 +260,30 @@ namespace VerduraoDoJoao.Melanciometro
                 Console.Clear();
 
                 //Resultado
-                for (int q = 0; q < 4; q++)
+                double total = (pagarComum + pagarBaby);
+                // Código para criar a tabela
+                string[,] tabela = new string[4, 4] { { Convert.ToString(diaSemana), "\tMelancia Comum", "melancia Baby", placaCaminhao }, { "Peso melancia", "\t" + Convert.ToString(quiloComum), "\t" + Convert.ToString(quiloBaby), "- - -" }, { "Valor melancia", "\t" + Convert.ToString(pagarComum), "\t" + Convert.ToString(pagarBaby), "- - -" }, { "Valor Total", "     - - - -", "     - - - -", Convert.ToString(total) } };
+                // Código para mostrar a tabela
+                for (int x = 0; x < 4; x++)
                 {
-                    for (int w = 0; w < 4; w++)
+                    for (int y = 0; y < 4; y++)
                     {
-                        Console.Write(tabela[q, w] + "\t ");
+                        Console.Write(tabela[x, y] + "\t ");
                     }
-                    Console.WriteLine("tabela2");
+                    Console.WriteLine();
                 }
                 Console.WriteLine();
                 Console.WriteLine("\r\nDigite a palavra 'sair' para encerrar o programa ou precione enter caso queira refazer a operação");
                 sair = Console.ReadLine();
                 Console.Clear();
             } while (sair.ToLower() != "sair");
+
             Console.ReadLine();
         }
     }
 }
 
+//($"melancia baby:{preco.ToString()}");
 
 // • O software deve permitir a entrada da placa do caminhão
 // • O software deve considerar dois valores fixos: melancia comum R$ 5.50 e melancia baby 8.54 o quilo
