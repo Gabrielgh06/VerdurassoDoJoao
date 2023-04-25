@@ -313,8 +313,9 @@ namespace VerduraoDoJoao.Melanciometro
                 //Resultado
                 double total = ((pagarComum) + (pagarBaby));
                 // Código para criar a tabela
-                string[,] tabela = new string[4, 4] { { Convert.ToString(diaSemana), "\tMelancia Comum", "\tmelancia Baby", "\t\t" + placaCaminhao }, { "Peso melancia", "\t\t" + Convert.ToString(carrinhoComum), "\t\t" + Convert.ToString(carrinhoBaby), "\t- - - - - - - -" }, { "Valor melancia", "\t\t" +Convert.ToString(pagarComum), "\t\t" + Convert.ToString(pagarBaby), "\t- - - - - - - -" }, { "Valor Total", "\t- - - - - - - -", "\t- - - - - - - -","\t\t" + Convert.ToString(total) } };
+                string[,] tabela = new string[4, 4] { { Convert.ToString(diaSemana), "\tMelancia Comum", "\tmelancia Baby", "\t\t" + placaCaminhao }, { "Peso melancia", "\t\t" + Convert.ToString(carrinhoComum), "\t\t" + Convert.ToString(carrinhoBaby), "\t- - - - - - - -" }, { "Valor melancia", "\t\t" + Convert.ToString(pagarComum), "\t\t" + Convert.ToString(pagarBaby), "\t- - - - - - - -" }, { "Valor Total", "\t- - - - - - - -", "\t- - - - - - - -", "\t\t" + Convert.ToString(total) } };
                 // Código para mostrar a tabela
+                Console.ForegroundColor = ConsoleColor.Green;
                 for (int x = 0; x < 4; x++)
                 {
                     for (int y = 0; y < 4; y++)
@@ -323,11 +324,21 @@ namespace VerduraoDoJoao.Melanciometro
                     }
                     Console.WriteLine();
                 }
+                Console.ResetColor();
                 Console.WriteLine();
-                Console.WriteLine("\r\nDigite a palavra 'sair' para encerrar o programa ou precione enter caso queira refazer a operação");
+                Console.Write("\r\nDigite");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write(" S ");
+                Console.ResetColor();
+                Console.Write("para encerrar o programa ou precione");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write(" enter ");
+                Console.ResetColor();
+                Console.Write("caso queira refazer a operação");
+                Console.WriteLine();
                 sair = Console.ReadLine();
                 Console.Clear();
-            } while (sair.ToLower() != "sair");
+            } while (sair.ToLower() != "s");
 
             Console.ReadLine();
         }
