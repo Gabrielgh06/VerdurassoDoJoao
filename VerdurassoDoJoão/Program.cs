@@ -1,4 +1,5 @@
 ﻿using System;
+using VerdurassoDoJoão;
 
 namespace VerduraoDoJoao.Melanciometro
 {
@@ -6,31 +7,12 @@ namespace VerduraoDoJoao.Melanciometro
     {
         static void Main(string[] args)
         {
-            //double valorComum = 5.5;
-            //double valorBaby = 8.56;
-            //double quiloComum = 0;
-            //double quiloBaby = 0;
-            //double pagarComum = 0;
-            //double pagarBaby = 0;
-            //double total = (pagarComum + pagarBaby);
             float ArredPrecoC;
             float ArredPrecoB;
             string sair;
             string placaCaminhao = null;
             string diaSemana = null;
             DayOfWeek today = DateTime.Today.DayOfWeek;
-            // string[,] tabela = new string[4, 4] { { Convert.ToString(diaSemana), "\tMelancia Comum", "melancia Baby", placaCaminhao }, { "Peso melancia", "\t" + Convert.ToString(quiloComum), "\t" + Convert.ToString(quiloBaby), "- -" }, { "Valor melancia", "\t" + Convert.ToString(pagarComum), "\t" + Convert.ToString(pagarBaby), "- -" }, { "Valor Total", "      - - -", "      - - -", " " + Convert.ToString(total) } };
-
-            //=> Acessar loja
-            //=> Login
-            //      Menu João:
-            //      Registrar Caminhão
-            //      Deletar Caminhão
-            //      Procurar Caminhão pela Placa
-            //      Procurar Caminhão pelo CPF/ CNPJ do proprietário
-            //      Regiustrar Produto
-            //      Deletar Produto
-            //      Sair
 
             do
             {
@@ -42,6 +24,7 @@ namespace VerduraoDoJoao.Melanciometro
                 double pagarBaby = 0;
                 double carrinhoComum = 0;
                 double carrinhoBaby = 0;
+                int iCaminhoes = 0;
 
                 // Boas vindas
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -58,6 +41,7 @@ namespace VerduraoDoJoao.Melanciometro
                 Console.Write("2"); // Login
                 Console.ResetColor();
                 Console.WriteLine(" para logar");
+
                 Console.ForegroundColor = ConsoleColor.Green;
                 var cmd = Console.ReadLine();
                 Console.ResetColor();
@@ -85,11 +69,22 @@ namespace VerduraoDoJoao.Melanciometro
 
                         if (usuario == "joão" && senha == "123")
                         {
-                            placaCaminhao = "ADM João";
-                            autenticado = true;
                             Console.BackgroundColor = ConsoleColor.DarkRed;
                             Console.WriteLine("Login realizado com sucesso!");
                             Console.ResetColor();
+                            Console.WriteLine("Bem Vindo João");
+                            //Console.WriteLine();
+                            //Console.WriteLine("___      ---      MENU     ---      ___");
+                            //Console.WriteLine("___ Procurar Caminhão pela Placa ___");
+                            //     *Deletar Caminhão
+                            //     *Procurar Caminhão pela Placa
+                            //     *Visualizar Pedidos
+                            //     *Registrar Produto
+                            //     *Deletar Produto
+                            //     *Sair
+
+                            placaCaminhao = "ADM João";
+                            autenticado = true;
                         }
                         else
                         {
@@ -104,8 +99,8 @@ namespace VerduraoDoJoao.Melanciometro
                                 Console.Clear();
                                 Console.WriteLine("Número máximo de tentativas atingido. \r\nACESSO BLOQUEADO.");
                                 Console.ReadKey();
+                                //return;
                                 Environment.Exit(0);
-                                //break;
                             }
                         }
 
@@ -121,67 +116,33 @@ namespace VerduraoDoJoao.Melanciometro
                 }
                 Console.BackgroundColor = ConsoleColor.Black;
 
-                /* COntrole de dia da semana escolhido pelo usuário
-                 * Console.Write("Informe o dia da semana: \r\n 1 - Segunda; \r\n 2 - Terça 15% off; \r\n 3 - Quarta 17% off; \r\n 4 - Quinta; \r\n 5 - Sexta\r\n");
-
-                    while (diaSemana == null)
-                    {
-                        switch (Console.ReadLine())
-                        {
-                            case "1":
-                                diaSemana = "Segunda-feira";
-                                desconto = 0.01;
-                                break;
-                            case "2":
-                                diaSemana = "Terça Verde";
-                                desconto = 0.15;
-                                break;
-                            case "3":
-                                diaSemana = "Quarta Verde";
-                                desconto = 0.17;
-                                break;
-                            case "4":
-                                diaSemana = "Quinta-Feira";
-                                desconto = 0.02;
-                                break;
-                            case "5":
-                                diaSemana = "Sexta-feira";
-                                desconto = 0.03;
-                                break;
-                            default:
-                                // Caso o usuário digite algo fora 1, 2, 3, 4, 5
-                                Console.WriteLine("Não entendi, digite 1, 2, 3, 4 ou 5");
-                                break;
-                        }
-                    }*/
-
                 // Dia da semana + desconto do dia 
                 switch (today)
                 {
                     case DayOfWeek.Monday:
                         diaSemana = "Segunda-Feira";
-                        valorComum = valorComum * (1 - 0.01);
-                        valorBaby = valorBaby * (1 - 0.01);
+                        valorComum *= (1 - 0.01);
+                        valorBaby *= (1 - 0.01);
                         break;
                     case DayOfWeek.Tuesday:
                         diaSemana = "Terça Verde";
-                        valorComum = valorComum * (1 - 0.15);
-                        valorBaby = valorBaby * (1 - 0.15);
+                        valorComum *= (1 - 0.15);
+                        valorBaby *= (1 - 0.15);
                         break;
                     case DayOfWeek.Wednesday:
                         diaSemana = "Quarta Verde";
-                        valorComum = valorComum * (1 - 0.17);
-                        valorBaby = valorBaby * (1 - 0.17);
+                        valorComum *= (1 - 0.17);
+                        valorBaby *= (1 - 0.17);
                         break;
                     case DayOfWeek.Thursday:
                         diaSemana = "Quinta-Feira";
-                        valorComum = valorComum * (1 - 0.02);
-                        valorBaby = valorBaby * (1 - 0.02);
+                        valorComum *= (1 - 0.02);
+                        valorBaby *= (1 - 0.02);
                         break;
                     case DayOfWeek.Friday:
                         diaSemana = "Sexta-feira";
-                        valorComum = valorComum * (1 - 0.03);
-                        valorBaby = valorBaby * (1 - 0.03);
+                        valorComum *= (1 - 0.03);
+                        valorBaby *= (1 - 0.03);
                         break;
                 }
                 Console.Clear();
@@ -192,14 +153,15 @@ namespace VerduraoDoJoao.Melanciometro
                 {
                     //arredondando os valores das melancias
                     Console.Clear();
-                    ArredPrecoC = (float)(Math.Round((double)valorComum, 2));
-                    ArredPrecoB = (float)(Math.Round((double)valorBaby, 2));
+                    ArredPrecoC = (float)valorComum;
+                    ArredPrecoB = (float)valorBaby;
+
                     pagarComum = Math.Round((double)ArredPrecoC * carrinhoComum, 2);
                     pagarBaby = Math.Round((double)ArredPrecoB * carrinhoBaby, 2);
 
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine($"Hoje é {diaSemana}");
-                    Console.WriteLine($"Temos disponíveis a melancia comum a {ArredPrecoC} o quilo e a melancia do tipo Baby a {ArredPrecoB} o quilo."); // ------------- ALTERAR --------------- 5,50 e 8,56
+                    Console.WriteLine($"Temos disponíveis a melancia comum a {ArredPrecoC = (float)Math.Round((double)valorComum, 2)} o quilo e a melancia do tipo Baby a {ArredPrecoB = (float)Math.Round((double)valorBaby, 2)} o quilo.");
                     Console.WriteLine("\n");
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("\t" + carrinhoComum + "kg de Melancia Comum no carrinho | R$" + pagarComum);
@@ -325,6 +287,7 @@ namespace VerduraoDoJoao.Melanciometro
                     Console.WriteLine();
                 }
                 Console.ResetColor();
+
                 Console.WriteLine();
                 Console.Write("\r\nDigite");
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -338,12 +301,26 @@ namespace VerduraoDoJoao.Melanciometro
                 Console.WriteLine();
                 sair = Console.ReadLine();
                 Console.Clear();
+
             } while (sair.ToLower() != "s");
 
             Console.ReadLine();
         }
     }
 }
+
+
+//=> Acessar loja
+//     *Registrar Caminhão
+//      Realizar compras
+//=> Login
+//     *Menu João:
+//     *Deletar Caminhão
+//     *Procurar Caminhão pela Placa
+//     *Visualizar Pedidos
+//     *Registrar Produto
+//     *Deletar Produto
+//     *Sair
 
 //($"melancia baby:{preco.ToString()}");
 
