@@ -29,7 +29,10 @@ namespace VerdurassoDoJoão
         //        else
         //            Console.WriteLine("CPF inválido");
         //    }
-
         //}
+        //Func<int, int> quadrado = x => x * x;
+        //Func<int, int, int> adicionar = (x, y) => x + y;
+        //Action<int> escreva = x => Console.WriteLine(x);
+        //escreva(quadrado(adicionar(1, 3)));
     }
 }
