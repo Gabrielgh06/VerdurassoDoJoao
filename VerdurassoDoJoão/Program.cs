@@ -24,7 +24,7 @@ namespace VerduraoDoJoao.Melanciometro
                 double pagarBaby = 0;
                 double carrinhoComum = 0;
                 double carrinhoBaby = 0;
-                int iCaminhoes = 0;
+                //int iCaminhoes = 0;
 
                 // Boas vindas
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
