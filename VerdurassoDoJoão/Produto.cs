@@ -1,10 +1,14 @@
 ﻿using System;
-using VerdurassoDoJoão;
+using System.Collections.Generic;
+using Produtos;
+using Caminhao;
+
 
 namespace VerduraoDoJoao.Melanciometro
 {
-    internal class Program
+    internal class Loja
     {
+        private static List<Produto> produtos = new List<Produto>();
         static void Main(string[] args)
         {
             float ArredPrecoC;
@@ -17,6 +21,7 @@ namespace VerduraoDoJoao.Melanciometro
             do
             {
                 // Rezetar:
+                bool failLogin = false;
                 bool sairCompra = false;
                 double valorComum = 5.5;
                 double valorBaby = 8.56;
@@ -24,31 +29,47 @@ namespace VerduraoDoJoao.Melanciometro
                 double pagarBaby = 0;
                 double carrinhoComum = 0;
                 double carrinhoBaby = 0;
-                //int iCaminhoes = 0;
-
-                // Boas vindas
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine("Bem vindo ao Verdurão do João ");
-                Console.ResetColor();
-                Console.WriteLine();
-                //Console.WriteLine("Digite: 1 para registrar seu caminhão ou 2 para logar");
-                //Console.WriteLine("Informe a placa do seu caminhão ou digite login para logar");
-                Console.Write("Digite ");
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write("1"); // Loja
-                Console.ResetColor();
-                Console.Write(" para acessar a loja ou ");
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.Write("2"); // Login
-                Console.ResetColor();
-                Console.WriteLine(" para logar");
+            etiqueta:
+                if (failLogin == false)
+                {
+                    // Boas vindas
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("Bem vindo ao Verdurão do João ");
+                    Console.ResetColor();
+                    Console.WriteLine();
+                    //Console.WriteLine("Digite: 1 para registrar seu caminhão ou 2 para logar");
+                    Console.Write("Digite ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write("1"); // Loja
+                    Console.ResetColor();
+                    Console.Write(" para acessar a loja ou ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write("2"); // Login
+                    Console.ResetColor();
+                    Console.WriteLine(" para logar");
+                }
+                else 
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("Bem vindo ao Verdurão do João ");
+                    Console.ResetColor();
+                    Console.WriteLine();
+                    //Console.WriteLine("Digite: 1 para registrar seu caminhão ou 2 para logar");
+                    Console.Write("Digite ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write("1"); // Loja
+                    Console.ResetColor();
+                    Console.Write(" para acessar a loja.");
+                    Console.WriteLine();
+                }
+                
 
                 Console.ForegroundColor = ConsoleColor.Green;
                 var cmd = Console.ReadLine();
                 Console.ResetColor();
 
                 // Còdigo para logar --> senha: 123 usuário: "joão"
-                if (cmd == "2")
+                if (cmd == "2" & failLogin == false)
                 {
                     int tentativas = 3;
                     string usuario;
@@ -57,7 +78,7 @@ namespace VerduraoDoJoao.Melanciometro
                     Console.Clear();
                     do
                     {
-                        Console.WriteLine("Por favor, informe suas credenciais de acesso:");
+                        Console.WriteLine($"Por favor, informe suas credenciais de acesso: \tVocê tem {tentativas} tentativas");
                         Console.Write("Usuário: ");
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                         usuario = Console.ReadLine();
@@ -74,16 +95,56 @@ namespace VerduraoDoJoao.Melanciometro
                             Console.WriteLine("Login realizado com sucesso!");
                             Console.ResetColor();
                             Console.WriteLine("Bem Vindo João");
+                            string comandoEscolhido;
 
-                            // Menu que quero criar futuramente
-                            //Console.WriteLine();
-                            //Console.WriteLine("___    ----     MENU     ----    ___");
-                            //Console.WriteLine("___ Procurar Caminhão pela Placa ___");
-                            //Console.WriteLine("___    -- Deletar Caminhão --    ___");
-                            //Console.WriteLine("___    - Visualizar Pedidos -    ___");
-                            //Console.WriteLine("___    -- Registrar Produto --    ___");
-                            //Console.WriteLine("___    --- Deletar Produto ---    ___");
-                            //Console.WriteLine("___    ----     SAIR     ----    ___");
+                            do
+                            {
+                                // Exibição do menu
+                                Console.Clear();
+                                Console.WriteLine("Escolha uma opção: ");
+                                Console.WriteLine("1 - Cadastrar produtos");
+                                Console.WriteLine("2 - Listar produtos");
+                                Console.WriteLine("3 - Sair");
+
+                                // Leitura da opção desejada pelo usuário:
+                                Console.Write("Opção desejada: ");
+                                comandoEscolhido = Console.ReadKey().KeyChar.ToString().ToUpper(); // Converte para char, dps para string, para por fim ter acesso ao ToUpper, Podendo então o usuário digitar tando s/S
+
+                                switch (comandoEscolhido)
+                                {
+                                    case "1":
+                                        Console.Write("\nNome do produto: ");
+                                        string nome = Console.ReadLine();
+                                        Console.Write("Preço do produto: ");
+                                        string preco = Console.ReadLine();
+                                        Produto novoProduto = new Produto(nome, Convert.ToDouble(preco));
+                                        produtos.Add(novoProduto);
+                                        Console.WriteLine("Produto adicionado com sucesso!");
+                                        break;
+                                    case "2":
+                                        if (produtos.Count > 0)
+                                        {
+                                            Console.WriteLine("\nListagem de Produtos");
+                                            foreach (Produto p in produtos)
+                                            {
+                                                Console.WriteLine(p.DetalhesProduto());
+                                            }
+                                            Console.Write("Pressione qualquer teclar para prosseguir...");
+                                            Console.ReadKey();
+                                        }
+                                        else
+                                            Console.WriteLine("\nNão há produtos cadastrados.");
+                                            Console.ReadKey();
+                                        break;
+                                    case "3":
+                                        Console.WriteLine("\nObrigado por usar o programa.");
+                                        Console.ReadKey();
+                                        break;
+                                    default:
+                                        Console.WriteLine("\nOpção inválida! Tente novamente.");
+                                        break;
+                                }
+                            } while (comandoEscolhido == "3");
 
                             placaCaminhao = "ADM João";
                             autenticado = true;
@@ -91,14 +152,13 @@ namespace VerduraoDoJoao.Melanciometro
                         else
                         {
                             tentativas--;
-                            Console.ForegroundColor= ConsoleColor.Red;
-                            Console.WriteLine($"Usuário ou senha incorretos. Você tem mais {tentativas} tentativas");
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Usuário ou senha incorretos.");
                             Console.ResetColor();
                             Console.ReadKey();
                             Console.Clear();
 
-                            if (tentativas == 0
-                                )
+                            if (tentativas == 0)
                             {
                                 Console.BackgroundColor = ConsoleColor.Red;
                                 Console.ForegroundColor = ConsoleColor.White;
@@ -106,22 +166,37 @@ namespace VerduraoDoJoao.Melanciometro
                                 Console.WriteLine("Número máximo de tentativas atingido. \r\nACESSO BLOQUEADO.");
                                 Console.ReadKey();
                                 //return;
-                                Environment.Exit(0);
+                                //Environment.Exit(0);
+                                Console.ResetColor();
+                                Console.Clear();
+                                failLogin = true;
+                                goto etiqueta;
                             }
                         }
 
                     } while (!autenticado);
 
                 }
-                else
+                else if(cmd == "1")
                 {
                     Console.WriteLine("Digite a placa do seu caminhão");
                     Console.ForegroundColor = ConsoleColor.Green;
-                    placaCaminhao = Console.ReadLine();
+                    Placa p1 = new Placa();
+                    Placa = Console.ReadLine();
                     Console.ResetColor();
                 }
-                Console.BackgroundColor = ConsoleColor.Black;
+                else
+                {
+                    Console.WriteLine("Digite ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write("1");
+                    Console.ResetColor();
+                    Console.Write(" para acessar a loja ou ");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write("2"); // Login
+                    Console.ResetColor();
 
+                }
                 // Dia da semana + desconto do dia 
                 switch (today)
                 {
@@ -306,14 +381,14 @@ namespace VerduraoDoJoao.Melanciometro
                 Console.ResetColor();
                 Console.Write("caso queira refazer a operação");
                 Console.WriteLine();
-                Console.ForegroundColor= ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.Green;
                 sair = Console.ReadLine();
                 Console.ResetColor();
                 Console.Clear();
 
             } while (sair.ToLower() != "s");
 
-            Console.ReadLine();            
+            Console.ReadLine();
         }
     }
 }
